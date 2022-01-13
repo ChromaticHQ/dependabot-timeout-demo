@@ -1,0 +1,183 @@
+{
+    "name": "chromatichq/dependabot-timeout-demo",
+    "description": "Demo dependabot timeout issue.",
+    "type": "project",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "furf/jquery-ui-touch-punch",
+                "version": "dev-master",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/furf/jquery-ui-touch-punch/archive/master.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    ],
+    "require": {
+        "bobey/geoip2-geolite2-composer": "~1.0",
+        "chromatichq/chq-robo": "^2.2",
+        "composer/installers": "^1.2",
+        "cweagans/composer-patches": "^1.6",
+        "drupal/address": "~1.0",
+        "drupal/better_exposed_filters": "^5.0@beta",
+        "drupal/captcha": "^1.0@beta",
+        "drupal/config_ignore": "^2.1",
+        "drupal/config_split": "^1.3",
+        "drupal/core-composer-scaffold": "^9.1",
+        "drupal/core-recommended": "^9.1",
+        "drupal/csp": "^1.15",
+        "drupal/current_page_crumb": "^1.2",
+        "drupal/devel": "^4.0",
+        "drupal/editor_advanced_link": "^1.4",
+        "drupal/encrypt": "^3.0@RC",
+        "drupal/entity_reference_revisions": "^1.7",
+        "drupal/eu_cookie_compliance": "^1.0@RC",
+        "drupal/focal_point": "^1.0@beta",
+        "drupal/forward": "^4.0",
+        "drupal/ga_login": "^1.0@alpha",
+        "drupal/gin": "^3.0@alpha",
+        "drupal/gin_toolbar": "^1.0@beta",
+        "drupal/google_tag": "^1.1",
+        "drupal/key": "^1.12",
+        "drupal/link_attributes": "^1.10",
+        "drupal/metatag": "^1.4",
+        "drupal/metatag_routes": "^1.3",
+        "drupal/optional_end_date": "^1.0",
+        "drupal/paragraphs": "^1.0",
+        "drupal/pathauto": "^1.6",
+        "drupal/pdf_api": "^2.0",
+        "drupal/printable": "^2.0",
+        "drupal/real_aes": "^2.2",
+        "drupal/redirect": "^1.2",
+        "drupal/redis": "^1.0@RC",
+        "drupal/robotstxt": "^1.2",
+        "drupal/search_api": "1.21.0",
+        "drupal/seckit": "^2.0",
+        "drupal/simple_sitemap": "^3.0",
+        "drupal/stage_file_proxy": "^1.0@alpha",
+        "drupal/svg_image": "^1.8",
+        "drupal/tfa": "^1.0@alpha",
+        "drupal/views_bulk_operations": "^3.0",
+        "drupal/webform": "^6.0",
+        "drupal/webform_config_ignore": "^1.0",
+        "drush/drush": "^10.1",
+        "furf/jquery-ui-touch-punch": "dev-master",
+        "platformsh/config-reader": "^2.4",
+        "sebastian/object-enumerator": "^3.0"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+        "drupal/browsersync": "^2.0@beta",
+        "drupal/coder": "^8.3",
+        "drupal/core-dev": "^9.1",
+        "drupal/twig_vardumper": "^2.2.0",
+        "mglaman/phpstan-drupal": "^0.12.1",
+        "phpstan/phpstan-deprecation-rules": "^0.12.2"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4.0"
+        },
+        "allow-plugins": {
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "build-themes": [
+            "nvm use",
+            "yarn build"
+        ],
+        "robo": [
+            "Composer\\Config::disableProcessTimeout",
+            "robo --ansi"
+        ],
+        "cs-check": "composer robo job:check-coding-standards",
+        "cs-fix": "composer robo job:fix-coding-standards",
+        "phpstan": "composer robo job:run-static-analysis",
+        "phpunit": "composer robo job:run-unit-tests",
+        "test": [
+            "@cs-check",
+            "@phpstan",
+            "composer robo validate:artifact-workflow",
+            "@phpunit"
+        ],
+        "code-coverage": "scripts/phpunit/code-coverage",
+        "post-drupal-scaffold-cmd": [
+            "patch -p1 < patches/robots-txt-remove-paths.patch"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "BPRobo\\": "robo/src"
+        }
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "composer-version": "^1.6.3",
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "excludes": [
+                "sites/example.settings.local.php",
+                "robots.txt"
+            ]
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "patches": {
+            "drupal/config_ignore": {
+                "Support for export filtering via drush": "https://www.drupal.org/files/issues/2021-08-18/config_ignore_2857247-75.patch"
+            },
+            "drupal/core": {
+                "Add cache max-age to render array in indexNode()": "https://www.drupal.org/files/issues/2020-12-02/3185984-2.patch",
+                "Add optional noopener and noreferrer attributes to links": "https://www.drupal.org/files/issues/2021-09-10/3232077-optional-rel-attributes-8.patch"
+            },
+            "drupal/redis": {
+                "Notice: Trying to access array offset on value of type bool": "https://git.drupalcode.org/project/redis/-/merge_requests/6.patch"
+            },
+            "drupal/tfa": {
+                "Redirect to TFA validation setup upon login without TFA": "https://www.drupal.org/files/issues/2020-01-22/tfa-setup-redirect-3108099-2.patch"
+            }
+        },
+        "violinist": {
+          "default_branch": "master",
+          "security_updates_only": 0,
+          "assignees": [
+            "adamzimmermann",
+            "mmatsoo"
+          ],
+          "number_of_concurrent_updates": 15,
+          "one_pull_request_per_package": 1,
+          "allow_updates_beyond_constraint": 1,
+          "blacklist": [],
+          "bundled_packages": [],
+          "timeframe_disallowed": 0,
+          "update_dev_dependencies": 1,
+          "update_with_dependencies": 1
+        }
+    }
+}

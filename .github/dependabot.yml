@@ -1,0 +1,27 @@
+---
+version: 2
+updates:
+  # Composer.
+  - package-ecosystem: composer
+    directory: "/"
+    # Check daily at 5AM UTC.
+    schedule:
+      interval: daily
+      time: "04:47"
+    allow:
+      # Allow updates only to explicitly defined dependencies.
+      # This has been added temporarily in an attempt to fix Dependabot
+      # timeouts.
+      - dependency-type: direct
+    open-pull-requests-limit: 15
+    reviewers:
+      - adamzimmermann
+      - mmatsoo
+    assignees:
+      - mmatsoo
+    versioning-strategy: auto
+    labels:
+      - "dependencies"
+      - "dept: back-end :back:"
+      - "php"
+      - "site: platform-wide"
