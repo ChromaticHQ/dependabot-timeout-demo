@@ -23,7 +23,7 @@
     ],
     "require": {
         "bobey/geoip2-geolite2-composer": "~1.0",
-        "chromatichq/chq-robo": "^2.2",
+        "chromatic/usher": "^2.15",
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
         "drupal/address": "~1.0",
@@ -96,7 +96,8 @@
             "composer/installers": true,
             "cweagans/composer-patches": true,
             "drupal/core-composer-scaffold": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {
