@@ -9,10 +9,7 @@ updates:
       interval: daily
       time: "04:47"
     allow:
-      # Allow updates only to explicitly defined dependencies.
-      # This has been added temporarily in an attempt to fix Dependabot
-      # timeouts.
-      - dependency-type: direct
+      - dependency-type: all
     open-pull-requests-limit: 15
     reviewers:
       - adamzimmermann
