@@ -2,7 +2,7 @@ diff --git a/web/robots.txt b/web/robots.txt
 index 18f8df8..8dfbb9d 100644
 --- a/web/robots.txt
 +++ b/web/robots.txt
-@@ -33,29 +33,3 @@ Allow: /profiles/*.jpg
+@@ -33,33 +33,3 @@ Allow: /profiles/*.jpg
  Allow: /profiles/*.jpeg
  Allow: /profiles/*.png
  Allow: /profiles/*.svg
@@ -22,6 +22,8 @@ index 18f8df8..8dfbb9d 100644
 -Disallow: /user/password
 -Disallow: /user/login
 -Disallow: /user/logout
+-Disallow: /media/oembed
+-Disallow: /*/media/oembed
 -# Paths (no clean URLs)
 -Disallow: /index.php/admin/
 -Disallow: /index.php/comment/reply/
@@ -32,3 +34,5 @@ index 18f8df8..8dfbb9d 100644
 -Disallow: /index.php/user/register
 -Disallow: /index.php/user/login
 -Disallow: /index.php/user/logout
+-Disallow: /index.php/media/oembed
+-Disallow: /index.php/*/media/oembed
